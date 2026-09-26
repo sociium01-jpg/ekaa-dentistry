@@ -694,21 +694,10 @@
   }
 
   // ==========================================================================
-  // 11. NEXT-LEVEL GLOBAL & PAGE-SPECIFIC INTERACTIVE ANIMATIONS
+  // 11. DELIBERATE USER-TRIGGERED INTERACTIVE VISUALIZERS & REVEALS
   // ==========================================================================
 
-  // A. Word-by-Word 3D Staggered Text Reveal on Inner Headings
-  document.querySelectorAll(".hero-inner h1, .band h2").forEach(function (heading) {
-    if (heading.querySelector(".gold-shimmer") || heading.children.length > 0) return;
-    var words = heading.textContent.trim().split(/\s+/);
-    if (words.length < 2) return;
-    heading.classList.add("word-wrap");
-    heading.innerHTML = words.map(function (w, idx) {
-      return '<span class="word-unit" style="transition-delay:' + (idx * 55) + 'ms">' + w + "</span>";
-    }).join(" ");
-  });
-
-  // B. Cursor Radial Spotlight & Magnetic Buttons
+  // A. Subtle Cursor Radial Spotlight on Interactive Surfaces
   if (window.matchMedia("(min-width: 981px) and (prefers-reduced-motion: no-preference)").matches) {
     document.querySelectorAll(".bento-item, .icon-tile, .review-card, .why-grid article").forEach(function (card) {
       card.addEventListener("mousemove", function (e) {
@@ -717,36 +706,9 @@
         card.style.setProperty("--spot-y", (e.clientY - r.top) + "px");
       });
     });
-
-    document.querySelectorAll(".btn-pink, .btn-violet").forEach(function (btn) {
-      btn.addEventListener("mousemove", function (e) {
-        var r = btn.getBoundingClientRect();
-        var dx = (e.clientX - (r.left + r.width / 2)) * 0.18;
-        var dy = (e.clientY - (r.top + r.height / 2)) * 0.22;
-        btn.style.transform = "translate(" + dx.toFixed(1) + "px, " + (dy - 2).toFixed(1) + "px)";
-      });
-      btn.addEventListener("mouseleave", function () {
-        btn.style.transform = "";
-      });
-    });
   }
 
-  // C. Auto-Advancing Step Timelines (pauses when user hovers)
-  document.querySelectorAll(".timeline-strip").forEach(function (strip) {
-    var nodes = strip.querySelectorAll(".step-node");
-    if (nodes.length < 2) return;
-    var idx = 0;
-    var paused = false;
-    strip.addEventListener("mouseenter", function () { paused = true; });
-    strip.addEventListener("mouseleave", function () { paused = false; });
-    setInterval(function () {
-      if (paused) return;
-      idx = (idx + 1) % nodes.length;
-      nodes.forEach(function (n, i) { n.classList.toggle("is-active", i === idx); });
-    }, 3400);
-  });
-
-  // D. Animated Number Counters ([data-count])
+  // B. Animated Number Counters ([data-count])
   var counters = document.querySelectorAll("[data-count]");
   if (counters.length && "IntersectionObserver" in window) {
     var countIO = new IntersectionObserver(function (entries) {
@@ -757,7 +719,7 @@
         var suffix = el.getAttribute("data-suffix") || "";
         var prefix = el.getAttribute("data-prefix") || "";
         var start = 0;
-        var duration = 1200;
+        var duration = 1100;
         var t0 = performance.now();
         function tick(now) {
           var p = Math.min(1, (now - t0) / duration);
@@ -773,14 +735,14 @@
     counters.forEach(function (c) { countIO.observe(c); });
   }
 
-  // E. Page-Specific Interactive Clinical Visualizers
-  // 1. Dental Implants 3D Exploded Toggle
+  // C. Page-Specific User-Triggered Clinical Visualizers
+  // 1. Dental Implants 3-Part Exploded Toggle
   var explodeBtn = document.getElementById("implant-explode-btn");
   var implantStack = document.getElementById("implant-3d-stack");
   if (explodeBtn && implantStack) {
     explodeBtn.addEventListener("click", function () {
       var exp = implantStack.classList.toggle("is-exploded");
-      explodeBtn.textContent = exp ? "Lock 3-Part Implant Together" : "Explode 3D Implant Layers";
+      explodeBtn.textContent = exp ? "Lock 3-part implant together" : "Separate 3-part implant layers";
     });
   }
 
@@ -793,7 +755,7 @@
     function updateOrtho() {
       var m = Number(orthoSlider.value);
       var factor = (12 - m) / 11;
-      if (orthoLabel) orthoLabel.textContent = "Month " + m + (m === 12 ? " • Aligned Smile!" : " • Gentle Tray Movement");
+      if (orthoLabel) orthoLabel.textContent = "Month " + m + (m === 12 ? " — Aligned arch" : " — Active tray progression");
       teeth.forEach(function (t, i) {
         var rot = (offsets[i % offsets.length] * factor).toFixed(1);
         var ty = (Math.abs(offsets[i % offsets.length]) * 0.45 * factor).toFixed(1);
@@ -811,7 +773,7 @@
     var shadeTeeth = document.querySelectorAll(".cosmetic-tooth-unit");
     function updateShade() {
       var v = Number(shadeSlider.value);
-      if (shadeLabel) shadeLabel.textContent = "Shade Boost: +" + v + " VITA Shades Brighter";
+      if (shadeLabel) shadeLabel.textContent = "Shade improvement: +" + v + " VITA shades brighter";
       var light = 84 + v * 2;
       shadeTeeth.forEach(function (t) {
         t.style.background = "linear-gradient(180deg, #ffffff 0%, hsl(42, 45%, " + light + "%) 100%)";
@@ -838,24 +800,4 @@
       });
     });
   });
-
-  // Scroll Reveal Observer
-  var revealTargets = document.querySelectorAll(".band > .wrap, .bento-item, .step-node, .review-card, .blog-card, .faq-item, .hero-inner h1, .band h2");
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          if (entry.target.classList.contains("word-wrap")) {
-            entry.target.classList.add("is-word-visible");
-          }
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    revealTargets.forEach(function (t) {
-      if (!t.classList.contains("word-wrap")) t.classList.add("reveal");
-      io.observe(t);
-    });
-  }
 })();

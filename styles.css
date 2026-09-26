@@ -854,20 +854,20 @@ select {
 }
 
 .kicker {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.4rem;
   color: var(--pink-deep);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
 }
 
 .kicker::before {
   content: "";
-  width: 1.4rem;
+  width: 1.25rem;
   height: 2px;
   background: var(--pink);
   display: inline-block;
@@ -884,6 +884,7 @@ h2 {
   font-size: clamp(1.8rem, 3.4vw, 2.65rem);
   line-height: 1.14;
   letter-spacing: -0.025em;
+  max-width: 26ch;
 }
 
 /* Asymmetric Split (Image Left or Right, Content Opposite — NEVER Forced Centered!) */
@@ -902,6 +903,8 @@ h2 {
 .prose li {
   color: var(--muted);
   font-size: 0.96rem;
+  max-width: 65ch;
+  line-height: 1.68;
 }
 
 .prose h3 {

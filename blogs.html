@@ -1,243 +1,201 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dental Health Blogs &amp; Clinical Guides | Ekaa Dentistry Hyderabad</title>
-  <meta name="description" content="Evidence-based dental articles by Dr. Chandni S Nair on dental implants, laser gum care, painless root canals, clear aligners, and pediatric oral health." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="assets/logo.png" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clinical Dental Guides &amp; Patient Journal — Ekaa Dentistry</title>
+  <meta name="description" content="Evidence-based dental guides by Dr. Chandni S Nair on dental implants, laser gum therapy, single-visit root canals, clear aligners, and children's oral health.">
+  <link rel="icon" type="image/jpeg" href="assets/favicon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Poppins:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <section class="hero hero-compact" style="--hero-image: url('assets/photos/blogs-hero.jpg')">
+  <a class="skip" href="#content">Skip to content</a>
+
+  <section class="hero hero-compact" style="--hero-image: url('assets/photos/notes.png')">
     <div class="mast">
       <div class="mast-inner">
-        <a class="logo" href="index.html" aria-label="Ekaa Dentistry Home">
-          <img src="assets/logo.png" alt="Ekaa Dentistry" />
-        </a>
-
-        <nav class="nav" id="site-nav" aria-label="Primary">
+        <a class="logo" href="index.html"><img src="assets/logo.png" alt="Ekaa Dentistry"></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav class="nav" id="site-nav">
           <a href="index.html">Home</a>
           <a href="about.html">About Us</a>
-
           <div class="drop">
-            <button class="drop-toggle" type="button" aria-expanded="false">
-              Services <span class="chev" aria-hidden="true">&#9662;</span>
-            </button>
-            <div class="drop-menu" role="menu">
-              <a href="general-checkup.html">General Checkup &amp; Preventative Care</a>
+            <button type="button" aria-expanded="false">Services</button>
+            <div class="drop-menu">
+              <a href="general-checkup.html">General Checkup</a>
               <a href="root-canal-treatment.html">Root Canal Treatment</a>
-              <a href="dental-implant-dentistry.html">Dental Implants</a>
-              <a href="periodonticgumdentistry.html">Periodontics (Gum Care)</a>
+              <a href="dental-implant-dentistry.html">Dental Implant Dentistry</a>
+              <a href="periodonticgumdentistry.html">Periodontic(Gum)Dentistry</a>
               <a href="cosmetic-dentistry.html">Cosmetic Dentistry</a>
-              <a href="orthodontics.html">Orthodontics (Braces &amp; Aligners)</a>
+              <a href="orthodontics.html">Orthodontics</a>
               <a href="pediatric-dentistry.html">Pediatric Dentistry</a>
-              <a href="dental-crowns-and-bridges.html">Dental Crowns &amp; Bridges</a>
-              <a href="oral-maxillofacial.html">Oral &amp; Maxillofacial Surgery</a>
+              <a href="dental-crowns-and-bridges.html">Dental Crowns and Bridges</a>
+              <a href="oral-maxillofacial.html">Oral Maxillofacial</a>
             </div>
           </div>
-
-          <a href="emi-insurance.html">EMI &amp; Insurance</a>
-          <a href="international-patients.html">International Patients</a>
-
+          <a href="blogs.html" aria-current="page">Blogs</a>
+          <a href="contact.html">Contact</a>
           <div class="drop">
-            <button class="drop-toggle" type="button" aria-expanded="false">
-              More <span class="chev" aria-hidden="true">&#9662;</span>
-            </button>
-            <div class="drop-menu" role="menu">
+            <button type="button" aria-expanded="false">More</button>
+            <div class="drop-menu">
+              <a href="international-patients.html">International Patients</a>
+              <a href="emi-insurance.html">EMI &amp; Insurance</a>
               <a href="community-outreach.html">Community Outreach</a>
               <a href="patient-testimonials.html">Patient Testimonials</a>
-              <a href="blogs.html" class="is-active">Blogs</a>
             </div>
           </div>
-
-          <a href="contact.html">Contact</a>
-        </nav>
-
-        <div class="mast-actions">
           <a class="btn btn-pink nav-cta" href="book.html">Book Your Appointment Now!</a>
-          <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
-            <span></span><span></span><span></span>
-          </button>
-        </div>
+        </nav>
       </div>
     </div>
 
-    <div class="hero-inner wrap">
-      <p class="eyebrow">CLINICAL INSIGHTS BY DR. CHANDNI S NAIR</p>
-      <h1>Dental Health Journal &amp; Patient Guides</h1>
-      <p class="sub">Clear, evidence-backed answers to common questions on implants, gum health, aligners, and preventive family dentistry.</p>
-      <div class="hero-cta">
-        <a class="btn btn-pink" href="#articles">Explore Articles</a>
-        <a class="btn btn-violet" href="book.html">Ask the Specialist</a>
+    <div class="hero-inner" id="content">
+      <p class="crumbs"><a href="index.html">Home</a> › Blogs</p>
+      <h1 class="page-title">Patient Education &amp; Clinical Notes</h1>
+      <p class="lede">Plain-language answers written by Dr. Chandni S Nair to help you understand your treatment options before sitting in the dental chair.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="split split-image-left">
+        <div class="frame">
+          <img src="assets/photos/gums.png" alt="Periodontal gum health guide by Dr. Chandni S Nair">
+          <div class="frame-glass-caption">
+            <div>
+              <strong>Featured Clinical Guide</strong>
+              <span>Written by Dr. Chandni S Nair, MDS (Periodontics &amp; Implantology)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prose">
+          <p class="kicker">Periodontal Wellness</p>
+          <h2>Why Bleeding Gums While Brushing Deserve Early Attention</h2>
+          <p>A trace of bleeding when brushing is often brushed aside as normal, yet it is the earliest sign of gingival inflammation. Left untreated, sub-gingival tartar deepens gum pockets and weakens the bone supporting your teeth.</p>
+          <p>Modern ultrasonic scaling and diode laser disinfection clear bacteria gently in a single visit—without scalpels or sutures.</p>
+          <div class="hero-actions">
+            <a class="btn btn-pink" href="periodonticgumdentistry.html">Read Laser Gum Care Guide</a>
+            <a class="btn btn-outline" href="book.html">Schedule a Gum Checkup</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <main>
-    <!-- Featured Article Asymmetric Split -->
-    <section class="band band-plain">
-      <div class="wrap">
-        <div class="mosaic">
-          <figure class="mosaic-media" data-animate>
-            <img src="assets/photos/blog-featured.jpg" alt="Guide to Periodontal Gum Health and Systemic Wellness by Dr. Chandni S Nair" />
-          </figure>
-          <div class="mosaic-copy" data-animate>
-            <span class="badge-pill">Featured Clinical Guide &bull; 5 Min Read</span>
-            <h2>Why Bleeding Gums Are an Early Warning Sign You Should Never Ignore</h2>
-            <p>Many people assume a hint of pink in the sink while brushing is normal. As a Periodontist &amp; Implantologist, Dr. Chandni S Nair explains how silent gingival inflammation progresses to bone loss—and how gentle ultrasonic &amp; laser therapy reverses it painlessly in a single visit.</p>
-            <div class="hero-cta" style="justify-content: flex-start; margin-top: 1.2rem;">
-              <a class="btn btn-pink" href="periodonticgumdentistry.html">Explore Laser Gum Care</a>
-              <a class="btn btn-violet" href="book.html">Book Gum Screening</a>
-            </div>
+  <section class="band band-wash">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-head-left">
+          <p class="kicker">Clinical Library</p>
+          <h2>Browse Guides by Topic</h2>
+        </div>
+      </div>
+
+      <div class="tab-bar" data-filter-target="#blog-list">
+        <button class="tab-btn is-active" type="button" data-filter="all">All Guides</button>
+        <button class="tab-btn" type="button" data-filter="implants">Implants &amp; Crowns</button>
+        <button class="tab-btn" type="button" data-filter="prevention">Prevention &amp; RCT</button>
+        <button class="tab-btn" type="button" data-filter="cosmetic">Aligners &amp; Veneers</button>
+        <button class="tab-btn" type="button" data-filter="kids">Children’s Teeth</button>
+      </div>
+
+      <div class="blog-grid" id="blog-list">
+        <a class="blog-card" href="dental-implant-dentistry.html" data-category="implants">
+          <img src="assets/photos/implant.png" alt="Dental implant vs bridge guide">
+          <div class="blog-card-body">
+            <span class="blog-tag">Implants · 4 min read</span>
+            <strong>Dental Implant vs. Bridge: Protecting Neighbouring Teeth</strong>
+            <p>Why replacing a missing molar with a standalone titanium root preserves adjacent enamel and jawbone volume.</p>
           </div>
-        </div>
+        </a>
+
+        <a class="blog-card" href="root-canal-treatment.html" data-category="prevention">
+          <img src="assets/photos/root-canal.png" alt="Single sitting rotary root canal treatment">
+          <div class="blog-card-body">
+            <span class="blog-tag">Endodontics · 3 min read</span>
+            <strong>How Electronic Apex Locators Enable Single-Sitting Root Canals</strong>
+            <p>Flexible NiTi rotary files clean microscopic root canals quietly in 45 minutes instead of requiring multiple visits.</p>
+          </div>
+        </a>
+
+        <a class="blog-card" href="orthodontics.html" data-category="cosmetic">
+          <img src="assets/photos/ortho.png" alt="Clear aligners for working professionals">
+          <div class="blog-card-body">
+            <span class="blog-tag">Orthodontics · 5 min read</span>
+            <strong>Clear Aligners for Working Professionals in Hyderabad</strong>
+            <p>What to expect from 3D digital arch scanning to wearing removable aligner trays during workdays and meals.</p>
+          </div>
+        </a>
+
+        <a class="blog-card" href="pediatric-dentistry.html" data-category="kids">
+          <img src="assets/photos/pediatric.png" alt="Pit and fissure sealants for children">
+          <div class="blog-card-body">
+            <span class="blog-tag">Pediatric Care · 3 min read</span>
+            <strong>Age-Six First Molars: How Pit &amp; Fissure Sealants Prevent Decay</strong>
+            <p>A ten-minute protective resin shield over deep molar grooves blocks food traps before cavities can form.</p>
+          </div>
+        </a>
+
+        <a class="blog-card" href="dental-crowns-and-bridges.html" data-category="implants">
+          <img src="assets/photos/crowns.png" alt="Monolithic zirconia vs metal ceramic crowns">
+          <div class="blog-card-body">
+            <span class="blog-tag">Crowns · 4 min read</span>
+            <strong>Why Metal-Free Zirconia Crowns Never Leave Dark Gum Lines</strong>
+            <p>Comparing 1200 MPa monolithic zirconia and lithium disilicate ceramics with traditional metal-fused caps.</p>
+          </div>
+        </a>
+
+        <a class="blog-card" href="general-checkup.html" data-category="prevention">
+          <img src="assets/photos/cleaning.png" alt="Ultrasonic teeth scaling guide">
+          <div class="blog-card-body">
+            <span class="blog-tag">Prevention · 3 min read</span>
+            <strong>Does Ultrasonic Scaling Weaken Tooth Enamel?</strong>
+            <p>How acoustic micro-vibrations detach calcified tartar while leaving healthy enamel completely intact.</p>
+          </div>
+        </a>
       </div>
-    </section>
-
-    <!-- Filterable Magazine Grid -->
-    <section class="band band-mist" id="articles">
-      <div class="wrap">
-        <div class="section-head" data-animate>
-          <p class="eyebrow">KNOWLEDGE LIBRARY</p>
-          <h2>Browse by Dental Topic</h2>
-          <p class="sub">Filter articles by clinical category to learn what to expect before your visit.</p>
-        </div>
-
-        <div class="tab-bar" data-filter-target="#blog-list" data-animate>
-          <button class="tab-btn is-active" type="button" data-filter="all">All Articles</button>
-          <button class="tab-btn" type="button" data-filter="implants">Implants &amp; Crowns</button>
-          <button class="tab-btn" type="button" data-filter="prevention">Prevention &amp; Gums</button>
-          <button class="tab-btn" type="button" data-filter="cosmetic">Aligners &amp; Cosmetic</button>
-          <button class="tab-btn" type="button" data-filter="kids">Kids&#39; Dental</button>
-        </div>
-
-        <div class="blog-grid" id="blog-list">
-          <article class="blog-card" data-category="implants" data-animate>
-            <div class="blog-card-media">
-              <img src="assets/photos/dental-implants-hero.jpg" alt="Dental Implant vs Dental Bridge comparison" />
-            </div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Implants &bull; 4 Min Read</span>
-              <h3>Dental Implant vs. Bridge: Which Lasts Longer for a Missing Molar?</h3>
-              <p>Discover why preserving adjacent natural teeth with a standalone titanium implant protects jawbone density for decades.</p>
-              <a class="card-link" href="dental-implant-dentistry.html">Read Implant Guide &rarr;</a>
-            </div>
-          </article>
-
-          <article class="blog-card" data-category="prevention" data-animate>
-            <div class="blog-card-media">
-              <img src="assets/photos/root-canal-hero.jpg" alt="Single sitting rotary root canal treatment" />
-            </div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Endodontics &bull; 3 Min Read</span>
-              <h3>How Digital Apex Locators Make Single-Sitting Root Canals Painless</h3>
-              <p>Modern rotary instruments clean microscopic canals silently in 45 minutes—eliminating the need for 3 or 4 repeat visits.</p>
-              <a class="card-link" href="root-canal-treatment.html">Learn About RCT &rarr;</a>
-            </div>
-          </article>
-
-          <article class="blog-card" data-category="cosmetic" data-animate>
-            <div class="blog-card-media">
-              <img src="assets/photos/orthodontics-hero.jpg" alt="Clear aligners vs ceramic braces for working professionals" />
-            </div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Orthodontics &bull; 5 Min Read</span>
-              <h3>Clear Aligners for Working Professionals in Hyderabad: What to Expect</h3>
-              <p>From 3D intraoral scanning to wearing removable trays during client meetings—here is your month-by-month aligner roadmap.</p>
-              <a class="card-link" href="orthodontics.html">Explore Aligners &rarr;</a>
-            </div>
-          </article>
-
-          <article class="blog-card" data-category="kids" data-animate>
-            <div class="blog-card-media">
-              <img src="assets/photos/pediatric-hero.jpg" alt="Pit and fissure sealants for children's molars" />
-            </div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Pediatric Care &bull; 3 Min Read</span>
-              <h3>Age 6 First Molars: How Pit &amp; Fissure Sealants Prevent 80% of Cavities</h3>
-              <p>Why a 10-minute painless protective resin coating on newly erupted permanent molars saves children from future fillings.</p>
-              <a class="card-link" href="pediatric-dentistry.html">Kids&#39; Prevention Guide &rarr;</a>
-            </div>
-          </article>
-
-          <article class="blog-card" data-category="implants" data-animate>
-            <div class="blog-card-media">
-              <img src="assets/photos/crowns-hero.jpg" alt="Monolithic Zirconia vs PFM Crowns" />
-            </div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Prosthodontics &bull; 4 Min Read</span>
-              <h3>Why Metal-Free Zirconia Crowns Never Leave a Dark Line Near Your Gums</h3>
-              <p>Comparing biocompatible CAD/CAM zirconia and E-Max ceramics against traditional porcelain-fused-to-metal caps.</p>
-              <a class="card-link" href="dental-crowns-and-bridges.html">Compare Crown Materials &rarr;</a>
-            </div>
-          </article>
-
-          <article class="blog-card" data-category="prevention" data-animate>
-            <div class="blog-card-media">
-              <img src="assets/photos/general-checkup-hero.jpg" alt="Ultrasonic scaling myths and facts" />
-            </div>
-            <div class="blog-card-body">
-              <span class="blog-tag">Preventive Care &bull; 3 Min Read</span>
-              <h3>Myth Busted: Does Ultrasonic Teeth Cleaning Loosen Your Teeth or Enamel?</h3>
-              <p>Understand how piezoelectric ultrasonic vibrations gently detach hardened tartar while leaving healthy tooth enamel untouched.</p>
-              <a class="card-link" href="general-checkup.html">See Ultrasonic Visualizer &rarr;</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
   <footer class="site-footer">
     <div class="wrap footer-grid">
-      <div class="foot-col">
-        <h4>Ekaa Dentistry</h4>
-        <p>Ekaa Dentistry, 2nd floor, above ISKCON Gachibowli, Sree Prabhupada Township, Masjid Banda road, Kondapur, Serilingampalle (M), Hyderabad, Telangana 500084</p>
-        <p class="foot-phone"><a href="tel:+919030121100">+91 9030121100</a></p>
-        <p><a href="mailto:drchandni@ekaadentistry.com">drchandni@ekaadentistry.com</a></p>
+      <div>
+        <h2>Ekaa Dentistry</h2>
+        <p>Ekaa Dentistry, Sree Prabhupada Township, Gachibowli, Serilingampalle (M), Hyderabad, Telangana, India</p>
+        <p>2nd floor, above ISKCON Gachibowli, Sree Prabhupada Township, Masjid Banda road Kondapur, Serilingampalle (M), Hyderabad, Telangana 500084</p>
+        <p><a href="tel:+919030121100">+91 9030121100</a><br><a href="mailto:drchandni@ekaadentistry.com">drchandni@ekaadentistry.com</a></p>
       </div>
-
-      <div class="foot-col">
-        <h4>Hours</h4>
-        <div class="week" data-hours>
-          <button type="button" data-day="Monday" data-time="10:00 am - 08:00 pm">Mon</button>
-          <button type="button" data-day="Tuesday" data-time="10:00 am - 08:00 pm">Tue</button>
-          <button type="button" data-day="Wednesday" data-time="10:00 am - 08:00 pm">Wed</button>
-          <button type="button" data-day="Thursday" data-time="10:00 am - 08:00 pm">Thu</button>
-          <button type="button" data-day="Friday" data-time="10:00 am - 08:00 pm">Fri</button>
-          <button type="button" data-day="Saturday" data-time="10:00 am - 08:00 pm">Sat</button>
-          <button type="button" data-day="Sunday" data-time="10:00 am - 02:00 pm">Sun</button>
+      <div>
+        <h2>Hours</h2>
+        <p class="open-now"></p>
+        <div class="week" role="group" aria-label="Hours">
+          <button type="button" data-day="1">Mon</button>
+          <button type="button" data-day="2">Tue</button>
+          <button type="button" data-day="3">Wed</button>
+          <button type="button" data-day="4">Thu</button>
+          <button type="button" data-day="5">Fri</button>
+          <button type="button" data-day="6">Sat</button>
+          <button type="button" data-day="0">Sun</button>
         </div>
-        <p class="hours-readout"><strong>Monday:</strong> 10:00 am - 08:00 pm</p>
+        <p class="day-detail"></p>
       </div>
-
-      <div class="foot-col">
-        <h4>Services</h4>
+      <div>
+        <h2>Services</h2>
         <ul>
           <li><a href="general-checkup.html">General Checkup</a></li>
           <li><a href="root-canal-treatment.html">Root Canal Treatment</a></li>
-          <li><a href="dental-implant-dentistry.html">Dental Implants</a></li>
-          <li><a href="periodonticgumdentistry.html">Periodontics</a></li>
+          <li><a href="dental-implant-dentistry.html">Dental Implant Dentistry</a></li>
           <li><a href="cosmetic-dentistry.html">Cosmetic Dentistry</a></li>
           <li><a href="orthodontics.html">Orthodontics</a></li>
-          <li><a href="pediatric-dentistry.html">Pediatric Dentistry</a></li>
-          <li><a href="dental-crowns-and-bridges.html">Crowns &amp; Bridges</a></li>
-          <li><a href="oral-maxillofacial.html">Oral &amp; Maxillofacial</a></li>
         </ul>
       </div>
     </div>
-
-    <div class="wrap foot-base">
-      <p>Copyright &copy; 2026 Ekaa Dentistry - All Rights Reserved.</p>
-      <div class="socials">
-        <a href="https://wa.me/919030121100" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
-        <a href="tel:+919030121100" aria-label="Call">TEL</a>
-        <a href="mailto:drchandni@ekaadentistry.com" aria-label="Email">@</a>
-      </div>
+    <div class="wrap">
+      <p class="copy">© 2026 Ekaa Dentistry. All Rights Reserved.</p>
     </div>
   </footer>
 
