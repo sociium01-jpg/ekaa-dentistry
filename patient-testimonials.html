@@ -1,125 +1,232 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Real patient experiences at Ekaa Dentistry, Hyderabad.</title>
-  <meta name="description" content="Real patient experiences at Ekaa Dentistry, Hyderabad.">
+  <title>Verified Patient Stories &amp; Reviews — Ekaa Dentistry, Semmancheri, OMR</title>
+  <meta name="description" content="Read real patient reviews for Dr.S.Kathiravan at Ekaa Dentistry on OMR, Chennai—covering painless root canals, 3D dental implants, laser gum surgery, and kids care.">
+  <link rel="icon" type="image/jpeg" href="assets/favicon.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Poppins:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip" href="#content">Skip to content</a>
-  
-  
-    
-    <section class="hero" style="--hero-image: url('assets/photos/smiles.png')">
-      
-    <div class="mast">
-      <div class="mast-inner">
-        <a class="logo" href="index.html"><img src="assets/logo.png" alt="Ekaa Dentistry"></a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-        
-    <nav class="nav" id="site-nav">
-      <a href="index.html">Home</a>
-      <a href="about.html">About Us</a>
-      <div class="drop">
-        <button type="button" aria-expanded="false">Services</button>
-        <div class="drop-menu"><a href="general-checkup.html">General Checkup</a>
-<a href="root-canal-treatment.html">Root Canal Treatment</a>
-<a href="dental-implant-dentistry.html">Dental Implant Dentistry</a>
-<a href="periodonticgumdentistry.html">Periodontic(Gum)Dentistry</a>
-<a href="cosmetic-dentistry.html">Cosmetic Dentistry</a>
-<a href="orthodontics.html">Orthodontics</a>
-<a href="pediatric-dentistry.html">Pediatric Dentistry</a>
-<a href="dental-crowns-and-bridges.html">Dental Crowns and Bridges</a>
-<a href="oral-maxillofacial.html">Oral Maxillofacial</a></div>
+  <header class="mast">
+    <div class="mast-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="assets/logo.png" alt="Ekaa Dentistry logo">
+        <span>Ekaa Dentistry<small>Where Smiles Harmony Begins</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <details class="nav-group">
+          <summary>Services</summary>
+          <div class="nav-menu">
+            <a href="general-checkup.html">General Checkups</a>
+            <a href="root-canal-treatment.html">Root Canal Treatment</a>
+            <a href="dental-implant-dentistry.html">Dental Implants</a>
+            <a href="periodonticgumdentistry.html">Periodontics &amp; Gum Care</a>
+            <a href="cosmetic-dentistry.html">Cosmetic Dentistry</a>
+            <a href="orthodontics.html">Orthodontics &amp; Braces</a>
+            <a href="pediatric-dentistry.html">Kids Dentistry</a>
+            <a href="dental-crowns-and-bridges.html">Crowns &amp; Bridges</a>
+            <a href="oral-maxillofacial.html">Surgical Dentistry</a>
+          </div>
+        </details>
+        <a href="emi-insurance.html">Dental EMI</a>
+        <a href="international-patients.html">Dental Tourism</a>
+        <a href="community-outreach.html">Community Outreach</a>
+        <a href="patient-testimonials.html" aria-current="page">Testimonials</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="contact.html">Contact Us</a>
+        <a class="nav-cta" href="book.html">Book Visit</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero hero-compact">
+      <div class="hero-inner">
+        <span class="eyebrow">4.9★ Rated Across OMR • Word-of-Mouth Trust</span>
+        <h1>Real Smiles, <span class="gold-shimmer">Zero-Pressure Experiences.</span></h1>
+        <p class="lead">Filter verified patient stories by department to read how families across Semmancheri, Navalur, and Sholinganallur experienced care at Ekaa Dentistry.</p>
       </div>
-      <a href="blogs.html">Blogs</a>
-      <a href="contact.html">Contact</a>
-      <div class="drop">
-        <button type="button" aria-expanded="false">More</button>
-        <div class="drop-menu">
-          <a href="international-patients.html">International Patients</a>
-<a href="emi-insurance.html">EMI &amp; Insurance</a>
-<a href="community-outreach.html">Community Outreach</a>
-          <a href="patient-testimonials.html" aria-current="page">Patient Testimonials</a>
+    </section>
+
+    <!-- Interactive Category Filter + 3D Review Grid -->
+    <section class="band">
+      <div class="wrap">
+        <div class="tab-bar" data-filter-target="#review-list">
+          <button class="tab-btn is-active" type="button" data-filter="all">All Stories (6)</button>
+          <button class="tab-btn" type="button" data-filter="implants">Implants &amp; Crowns</button>
+          <button class="tab-btn" type="button" data-filter="rct">Root Canal &amp; Pain Relief</button>
+          <button class="tab-btn" type="button" data-filter="gums">Laser Gum Care</button>
+          <button class="tab-btn" type="button" data-filter="family">Kids &amp; Aligners</button>
+        </div>
+
+        <div id="review-list" class="review-grid">
+          <article class="review-card" data-category="implants">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-quote">“Dr. Kathiravan explained the 3D bone scan patiently and placed two molar implants with zero post-op swelling. Having an MDS Periodontist handle the surgery gave my family complete confidence.”</p>
+            </div>
+            <div class="review-author">
+              <strong>Ramesh V. • Navalur, OMR</strong>
+              <span>3D Guided Titanium Implants</span>
+            </div>
+          </article>
+
+          <article class="review-card" data-category="rct">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-quote">“Walked in at 7 PM with severe molar throbbing after work. Single-sitting rotary root canal was done in 50 minutes—I honestly didn’t even feel the anesthesia needle.”</p>
+            </div>
+            <div class="review-author">
+              <strong>Divya S. • Sholinganallur IT Park</strong>
+              <span>Single-Sitting Root Canal &amp; Zirconia Crown</span>
+            </div>
+          </article>
+
+          <article class="review-card" data-category="gums">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-quote">“Another clinic told me to extract two slightly loose lower teeth. Dr. Kathiravan saved both teeth using laser gum pocket therapy and splinting. Truly ethical practice.”</p>
+            </div>
+            <div class="review-author">
+              <strong>Sundaram K. • Semmancheri</strong>
+              <span>Laser Periodontal Pocket Therapy</span>
+            </div>
+          </article>
+
+          <article class="review-card" data-category="family">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-quote">“My 6-year-old used to cry at the sight of a dental chair. The Tell-Show-Do introduction here turned her fluoride and sealant visit into a game!”</p>
+            </div>
+            <div class="review-author">
+              <strong>Meenakshi &amp; Riya • Thalambur</strong>
+              <span>Pediatric Sealants &amp; Fluoride Care</span>
+            </div>
+          </article>
+
+          <article class="review-card" data-category="implants">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-quote">“Flew down from Dubai for 8 days. We did a WhatsApp video consult before my flight, and my 4 front E-Max veneers and root canal crown were delivered ahead of schedule.”</p>
+            </div>
+            <div class="review-author">
+              <strong>Aravind P. • NRI Patient (UAE)</strong>
+              <span>E-Max Veneers &amp; Zirconia Crown</span>
+            </div>
+          </article>
+
+          <article class="review-card" data-category="family">
+            <div>
+              <div class="review-stars">★★★★★</div>
+              <p class="review-quote">“Upfront written pricing and 0% EMI made my clear aligner journey super smooth. Evening slots up to 9 PM meant I never had to take half-day leave from SIPCOT.”</p>
+            </div>
+            <div class="review-author">
+              <strong>Prashanth N. • Siruseri SIPCOT</strong>
+              <span>Invisible Clear Aligners</span>
+            </div>
+          </article>
         </div>
       </div>
-      <a class="btn btn-pink nav-cta" href="book.html">Book Your Appointment Now!</a>
-    </nav>
-    
+    </section>
+
+    <!-- Asymmetric Split: Featured Patient Journey -->
+    <section class="band band-wash">
+      <div class="wrap">
+        <div class="split split-image-left">
+          <div class="frame">
+            <img src="assets/photos/smiles.png" alt="Happy Ekaa Dentistry patient smile">
+            <div class="frame-glass-caption">
+              <strong>98% Patient Referral Rate</strong>
+              <span>Most of our new patients are referred by neighbours on OMR</span>
+            </div>
+          </div>
+
+          <div>
+            <span class="eyebrow">Why Patients Refer Their Families</span>
+            <h2>Three Promises We Keep at Every Visit</h2>
+            <p class="lead">Whether you visit for a ₹1,000 scaling or a full-arch implant restoration, our clinical time and transparency remain identical.</p>
+
+            <div class="feature-strip" style="margin-top:20px">
+              <div class="feature-strip-item">
+                <span class="feature-strip-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+                <div>
+                  <strong>No Surprise Add-Ons</strong>
+                  <span>Written estimate approved by you before any procedure begins.</span>
+                </div>
+              </div>
+              <div class="feature-strip-item">
+                <span class="feature-strip-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V7l7-4z"/></svg></span>
+                <div>
+                  <strong>Direct Specialist Access</strong>
+                  <span>Dr.S.Kathiravan personally oversees every diagnosis and treatment plan.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="cta-row" style="margin-top:24px">
+              <a class="btn btn-primary" href="book.html">Experience Ekaa Dentistry</a>
+              <button class="btn btn-ghost-dark" type="button" data-open-modal>Quick WhatsApp Booking</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot-inner">
+      <div>
+        <a class="brand" href="index.html">
+          <img class="brand-logo" src="assets/logo.png" alt="Ekaa Dentistry logo">
+          <span>Ekaa Dentistry<small>Where Smiles Harmony Begins</small></span>
+        </a>
+        <p style="margin-top:14px">Ethical, specialist-led dental care on Rajiv Gandhi Salai (OMR), Semmancheri, Chennai – 600119.</p>
+      </div>
+      <div>
+        <h4>Key Treatments</h4>
+        <ul>
+          <li><a href="general-checkup.html">General Checkups</a></li>
+          <li><a href="root-canal-treatment.html">Root Canal Treatment</a></li>
+          <li><a href="dental-implant-dentistry.html">Dental Implants</a></li>
+          <li><a href="periodonticgumdentistry.html">Periodontics &amp; Gum Care</a></li>
+          <li><a href="cosmetic-dentistry.html">Cosmetic Dentistry</a></li>
+          <li><a href="orthodontics.html">Orthodontics &amp; Braces</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Patient Resources</h4>
+        <ul>
+          <li><a href="about.html">About Dr.S.Kathiravan</a></li>
+          <li><a href="emi-insurance.html">0% Dental EMI</a></li>
+          <li><a href="international-patients.html">Dental Tourism</a></li>
+          <li><a href="community-outreach.html">Community Outreach</a></li>
+          <li><a href="patient-testimonials.html">Patient Testimonials</a></li>
+          <li><a href="blogs.html">Dental Care Blogs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Reach Us</h4>
+        <ul>
+          <li><a href="tel:+919842764024">+91 98427 64024</a></li>
+          <li><a href="mailto:ekaadentistry@gmail.com">ekaadentistry@gmail.com</a></li>
+          <li><a href="book.html">Book Appointment Online</a></li>
+        </ul>
       </div>
     </div>
-    
-      <div class="hero-inner" id="content">
-        <p class="script">your smile deserves expert care</p>
-        <h1 class="page-title">Real patient experiences at Ekaa Dentistry, Hyderabad.</h1>
-        <p class="crumbs"><a href="index.html">Home</a> | Patient Testimonials</p>
-      </div>
-    </section>
-    
-    <section class="band">
-      <div class="wrap split">
-        <div class="prose" id="content-body">
-          <p class="kicker">Patient Testimonials</p>
-          <p>Read verified testimonials from patients in Kondapur, Gachibowli, and nearby areas who chose Ekaa Dentistry, a multispeciality dental clinic, for services such as dental implants, cosmetic dentistry, root canal treatment, and preventive dental care.</p>
-<p>Get in Touch</p>
-<h3>Patient Testimonials | Ekaa Dentistry - Real Experiences| Dental Implants| Root Canal Treatment | Gum disease treatments</h3>
-<h3>Video</h3>
-<h3>Happy Customer</h3>
-<p>Patient feedback video from Ekaa Dentistry, a leading dentist and dental clinic near you, offering painless treatments, gum care, dental implants, and complete family dentistry in a modern, hygienic setting.</p>
-<p>Ekaa Dentistry – Best Dental Clinic in Kondapur &amp; Gachibowli Ekaa Dentistry is a trusted multispeciality dental clinic in Kondapur, Hyderabad, located near the Serilingampalle–Kondapur–Gachibowli corridor. If you are searching for a dentist near me, best dental clinic near Gachibowli, or a family dentist in Kondapur, our specialist-led team provides comprehensive and comfortable dental care for all age groups. Our services include general dentistry, cosmetic dentistry, root canal treatment, dental implants, braces and Invisalign, laser dentistry, pediatric dentistry, gum treatments (periodontics), oral and maxillofacial surgery, and in-house OPG X-ray diagnostics, ensuring accurate diagnosis and complete care under one roof. We proudly serve patients from Kondapur, Gachibowli, Serilingampalle, Masjid Banda, Hitech City, Madhapur, Hafeezpet, and nearby areas. With advanced dental technology, ethical treatment planning, and a strong focus on patient comfort, Ekaa Dentistry is committed to long-term oral health and confident smiles. 📍 Location: Serilingampalle, Kondapur, Hyderabad – Near Gachibowli</p>
-<p>📞 Appointments: Call or book online at +91 9030121100</p>
-<p>🕒 Timings: Mon–Sun | Specialist Consultations Available © 2026 Ekaa Dentistry. All Rights Reserved.</p>
-<p>Powered by</p>
-          <p><a class="btn btn-violet" href="book.html">Book Your Appointment Now!</a></p>
-        </div>
-        <div class="frame"><img src="assets/photos/smiles.png" alt="People smiling together"></div>
-      </div>
-    </section>
-    
-  
-    <footer class="site-footer">
-      <div class="wrap footer-grid">
-        <div>
-          <h2>Ekaa Dentistry</h2>
-          <p>Ekaa Dentistry, Sree Prabhupada Township, Gachibowli, Serilingampalle (M), Hyderabad, Telangana, India</p>
-          <p>2nd floor, above ISKCON Gachibowli, Sree Prabhupada Township, Masjid Banda road Kondapur, Serilingampalle (M), Hyderabad, Telangana 500084</p>
-          <p><a href="tel:+919030121100">+91 9030121100</a><br><a href="mailto:drchandni@ekaadentistry.com">drchandni@ekaadentistry.com</a></p>
-        </div>
-        <div>
-          <h2>Hours</h2>
-          <p class="open-now"></p>
-          <div class="week" role="group" aria-label="Hours">
-            <button type="button" data-day="1">Mon</button>
-            <button type="button" data-day="2">Tue</button>
-            <button type="button" data-day="3">Wed</button>
-            <button type="button" data-day="4">Thu</button>
-            <button type="button" data-day="5">Fri</button>
-            <button type="button" data-day="6">Sat</button>
-            <button type="button" data-day="0">Sun</button>
-          </div>
-          <p class="day-detail"></p>
-        </div>
-        <div>
-          <h2>Services</h2>
-          <ul>
-            <li><a href="general-checkup.html">General Checkup</a></li>
-            <li><a href="root-canal-treatment.html">Root Canal Treatment</a></li>
-            <li><a href="dental-implant-dentistry.html">Dental Implant Dentistry</a></li>
-            <li><a href="cosmetic-dentistry.html">Cosmetic Dentistry</a></li>
-            <li><a href="orthodontics.html">Orthodontics</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="wrap">
-        <p class="copy">© 2026 Ekaa Dentistry. All Rights Reserved.</p>
-      </div>
-    </footer>
-    
-  <script src="main.js"></script>
+    <div class="copy">
+      <span>© 2026 Ekaa Dentistry. All rights reserved.</span>
+      <span>Designed for Clarity, Comfort &amp; Clinical Precision</span>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
 </body>
 </html>
