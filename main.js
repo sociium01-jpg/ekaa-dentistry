@@ -693,19 +693,168 @@
     }
   }
 
+  // ==========================================================================
+  // 11. NEXT-LEVEL GLOBAL & PAGE-SPECIFIC INTERACTIVE ANIMATIONS
+  // ==========================================================================
+
+  // A. Word-by-Word 3D Staggered Text Reveal on Inner Headings
+  document.querySelectorAll(".hero-inner h1, .band h2").forEach(function (heading) {
+    if (heading.querySelector(".gold-shimmer") || heading.children.length > 0) return;
+    var words = heading.textContent.trim().split(/\s+/);
+    if (words.length < 2) return;
+    heading.classList.add("word-wrap");
+    heading.innerHTML = words.map(function (w, idx) {
+      return '<span class="word-unit" style="transition-delay:' + (idx * 55) + 'ms">' + w + "</span>";
+    }).join(" ");
+  });
+
+  // B. Cursor Radial Spotlight & Magnetic Buttons
+  if (window.matchMedia("(min-width: 981px) and (prefers-reduced-motion: no-preference)").matches) {
+    document.querySelectorAll(".bento-item, .icon-tile, .review-card, .why-grid article").forEach(function (card) {
+      card.addEventListener("mousemove", function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty("--spot-x", (e.clientX - r.left) + "px");
+        card.style.setProperty("--spot-y", (e.clientY - r.top) + "px");
+      });
+    });
+
+    document.querySelectorAll(".btn-pink, .btn-violet").forEach(function (btn) {
+      btn.addEventListener("mousemove", function (e) {
+        var r = btn.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width / 2)) * 0.18;
+        var dy = (e.clientY - (r.top + r.height / 2)) * 0.22;
+        btn.style.transform = "translate(" + dx.toFixed(1) + "px, " + (dy - 2).toFixed(1) + "px)";
+      });
+      btn.addEventListener("mouseleave", function () {
+        btn.style.transform = "";
+      });
+    });
+  }
+
+  // C. Auto-Advancing Step Timelines (pauses when user hovers)
+  document.querySelectorAll(".timeline-strip").forEach(function (strip) {
+    var nodes = strip.querySelectorAll(".step-node");
+    if (nodes.length < 2) return;
+    var idx = 0;
+    var paused = false;
+    strip.addEventListener("mouseenter", function () { paused = true; });
+    strip.addEventListener("mouseleave", function () { paused = false; });
+    setInterval(function () {
+      if (paused) return;
+      idx = (idx + 1) % nodes.length;
+      nodes.forEach(function (n, i) { n.classList.toggle("is-active", i === idx); });
+    }, 3400);
+  });
+
+  // D. Animated Number Counters ([data-count])
+  var counters = document.querySelectorAll("[data-count]");
+  if (counters.length && "IntersectionObserver" in window) {
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var target = Number(el.getAttribute("data-count")) || 0;
+        var suffix = el.getAttribute("data-suffix") || "";
+        var prefix = el.getAttribute("data-prefix") || "";
+        var start = 0;
+        var duration = 1200;
+        var t0 = performance.now();
+        function tick(now) {
+          var p = Math.min(1, (now - t0) / duration);
+          var ease = 1 - Math.pow(1 - p, 3);
+          var val = Math.round(start + (target - start) * ease);
+          el.textContent = prefix + val.toLocaleString("en-IN") + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        countIO.unobserve(el);
+      });
+    }, { threshold: 0.25 });
+    counters.forEach(function (c) { countIO.observe(c); });
+  }
+
+  // E. Page-Specific Interactive Clinical Visualizers
+  // 1. Dental Implants 3D Exploded Toggle
+  var explodeBtn = document.getElementById("implant-explode-btn");
+  var implantStack = document.getElementById("implant-3d-stack");
+  if (explodeBtn && implantStack) {
+    explodeBtn.addEventListener("click", function () {
+      var exp = implantStack.classList.toggle("is-exploded");
+      explodeBtn.textContent = exp ? "Lock 3-Part Implant Together" : "Explode 3D Implant Layers";
+    });
+  }
+
+  // 2. Orthodontics Interactive Alignment Scrubber
+  var orthoSlider = document.getElementById("ortho-month-slider");
+  if (orthoSlider) {
+    var orthoLabel = document.getElementById("ortho-month-label");
+    var teeth = document.querySelectorAll(".ortho-tooth-unit");
+    var offsets = [-14, 12, -9, 15, -11, 8];
+    function updateOrtho() {
+      var m = Number(orthoSlider.value);
+      var factor = (12 - m) / 11;
+      if (orthoLabel) orthoLabel.textContent = "Month " + m + (m === 12 ? " • Aligned Smile!" : " • Gentle Tray Movement");
+      teeth.forEach(function (t, i) {
+        var rot = (offsets[i % offsets.length] * factor).toFixed(1);
+        var ty = (Math.abs(offsets[i % offsets.length]) * 0.45 * factor).toFixed(1);
+        t.style.transform = " translateY(" + ty + "px) rotate(" + rot + "deg)";
+      });
+    }
+    orthoSlider.addEventListener("input", updateOrtho);
+    updateOrtho();
+  }
+
+  // 3. Cosmetic Dentistry Shade & Veneer Slider
+  var shadeSlider = document.getElementById("smile-shade-slider");
+  if (shadeSlider) {
+    var shadeLabel = document.getElementById("smile-shade-label");
+    var shadeTeeth = document.querySelectorAll(".cosmetic-tooth-unit");
+    function updateShade() {
+      var v = Number(shadeSlider.value);
+      if (shadeLabel) shadeLabel.textContent = "Shade Boost: +" + v + " VITA Shades Brighter";
+      var light = 84 + v * 2;
+      shadeTeeth.forEach(function (t) {
+        t.style.background = "linear-gradient(180deg, #ffffff 0%, hsl(42, 45%, " + light + "%) 100%)";
+      });
+    }
+    shadeSlider.addEventListener("input", updateShade);
+    updateShade();
+  }
+
+  // 4. Live Appointment Ticket Preview on book.html
+  document.querySelectorAll(".chip-grid").forEach(function (group) {
+    var inputId = group.getAttribute("data-input");
+    group.querySelectorAll(".slot-chip").forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        var val = chip.getAttribute("data-value") || chip.textContent.trim();
+        if (inputId === "need") {
+          var ts = document.getElementById("ticket-service");
+          if (ts) ts.textContent = val;
+        }
+        if (inputId === "time") {
+          var tt = document.getElementById("ticket-slot");
+          if (tt) tt.textContent = val;
+        }
+      });
+    });
+  });
+
   // Scroll Reveal Observer
-  var revealTargets = document.querySelectorAll(".band > .wrap, .bento-item, .step-node, .review-card, .blog-card, .faq-item");
+  var revealTargets = document.querySelectorAll(".band > .wrap, .bento-item, .step-node, .review-card, .blog-card, .faq-item, .hero-inner h1, .band h2");
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
+          if (entry.target.classList.contains("word-wrap")) {
+            entry.target.classList.add("is-word-visible");
+          }
           io.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
     revealTargets.forEach(function (t) {
-      t.classList.add("reveal");
+      if (!t.classList.contains("word-wrap")) t.classList.add("reveal");
       io.observe(t);
     });
   }
