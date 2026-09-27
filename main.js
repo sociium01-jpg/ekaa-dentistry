@@ -694,7 +694,7 @@
   }
 
   // ==========================================================================
-  // 11. DELIBERATE USER-TRIGGERED INTERACTIVE VISUALIZERS & REVEALS
+  // 11. PLUGIN-POWERED ANIMATION ENGINE (GSAP + ScrollTrigger + SplitType + Lenis)
   // ==========================================================================
 
   // A. Subtle Cursor Radial Spotlight on Interactive Surfaces
@@ -708,34 +708,7 @@
     });
   }
 
-  // B. Animated Number Counters ([data-count])
-  var counters = document.querySelectorAll("[data-count]");
-  if (counters.length && "IntersectionObserver" in window) {
-    var countIO = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        var el = entry.target;
-        var target = Number(el.getAttribute("data-count")) || 0;
-        var suffix = el.getAttribute("data-suffix") || "";
-        var prefix = el.getAttribute("data-prefix") || "";
-        var start = 0;
-        var duration = 1100;
-        var t0 = performance.now();
-        function tick(now) {
-          var p = Math.min(1, (now - t0) / duration);
-          var ease = 1 - Math.pow(1 - p, 3);
-          var val = Math.round(start + (target - start) * ease);
-          el.textContent = prefix + val.toLocaleString("en-IN") + suffix;
-          if (p < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-        countIO.unobserve(el);
-      });
-    }, { threshold: 0.25 });
-    counters.forEach(function (c) { countIO.observe(c); });
-  }
-
-  // C. Page-Specific User-Triggered Clinical Visualizers
+  // B. Page-Specific User-Triggered Clinical Visualizers
   // 1. Dental Implants 3-Part Exploded Toggle
   var explodeBtn = document.getElementById("implant-explode-btn");
   var implantStack = document.getElementById("implant-3d-stack");
@@ -743,6 +716,13 @@
     explodeBtn.addEventListener("click", function () {
       var exp = implantStack.classList.toggle("is-exploded");
       explodeBtn.textContent = exp ? "Lock 3-part implant together" : "Separate 3-part implant layers";
+      if (window.gsap) {
+        window.gsap.fromTo(
+          implantStack.querySelectorAll(".implant-part"),
+          { scale: 0.96 },
+          { scale: 1, duration: 0.45, stagger: 0.06, ease: "back.out(2)" }
+        );
+      }
     });
   }
 
@@ -783,7 +763,17 @@
     updateShade();
   }
 
-  // 4. Live Appointment Ticket Preview on book.html
+  // 4. Live Appointment Ticket Preview + Interactive Step Gauge on book.html
+  var ticketEl = document.querySelector(".ticket-preview");
+  if (ticketEl && !document.querySelector(".booking-step-gauge")) {
+    var gauge = document.createElement("div");
+    gauge.className = "booking-step-gauge";
+    gauge.innerHTML =
+      '<div class="booking-gauge-meta"><span>Slot Configuration Progress</span><strong id="booking-gauge-pct">66% Ready</strong></div>' +
+      '<div class="booking-gauge-track"><div class="booking-gauge-fill" id="booking-gauge-bar" style="width:66%"></div></div>';
+    ticketEl.insertBefore(gauge, ticketEl.firstChild);
+  }
+
   document.querySelectorAll(".chip-grid").forEach(function (group) {
     var inputId = group.getAttribute("data-input");
     group.querySelectorAll(".slot-chip").forEach(function (chip) {
@@ -797,7 +787,527 @@
           var tt = document.getElementById("ticket-slot");
           if (tt) tt.textContent = val;
         }
+        if (ticketEl) {
+          ticketEl.classList.add("is-pulsing");
+          setTimeout(function () { ticketEl.classList.remove("is-pulsing"); }, 500);
+        }
       });
     });
   });
+
+  // Update booking gauge to 100% when patient types name/phone on book.html
+  if (ticketEl) {
+    var bForm = document.getElementById("visit-form");
+    if (bForm) {
+      bForm.addEventListener("input", function () {
+        var n = bForm.querySelector('[name="name"]');
+        var p = bForm.querySelector('[name="phone"]');
+        var bar = document.getElementById("booking-gauge-bar");
+        var pct = document.getElementById("booking-gauge-pct");
+        var ready = (n && n.value.trim().length > 1) && (p && p.value.trim().length > 5);
+        if (bar && pct) {
+          bar.style.width = ready ? "100%" : "82%";
+          pct.textContent = ready ? "100% Ready to Confirm" : "82% Almost Ready";
+        }
+      });
+    }
+  }
+
+  // C. Inject Page-Specific Infographics & Metric Strips Across All 18 Pages
+  var pageName = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  if (pageName && pageName.indexOf(".html") === -1) pageName += ".html";
+
+  // 1. Homepage Trust Counter Ribbon (index.html)
+  if (pageName === "index.html") {
+    var aboutSplit = document.querySelector(".band .split");
+    if (aboutSplit && !document.querySelector(".home-stats-ribbon")) {
+      var ribbon = document.createElement("div");
+      ribbon.className = "home-stats-ribbon";
+      ribbon.innerHTML =
+        '<div class="stat-box" data-ring-pct="95"><span class="stat-num" data-count="10" data-suffix="+ Yrs">10+ Yrs</span><span class="stat-label">Specialist Implant &amp; Gum Care</span></div>' +
+        '<div class="stat-box" data-ring-pct="98"><span class="stat-num" data-count="5000" data-suffix="+">5,000+</span><span class="stat-label">Smiles Restored in Hyderabad</span></div>' +
+        '<div class="stat-box" data-ring-pct="99"><span class="stat-num" data-count="99" data-suffix="%">99%</span><span class="stat-label">Pain-Free Patient Feedback</span></div>' +
+        '<div class="stat-box" data-ring-pct="100"><span class="stat-num" data-count="100" data-suffix="%">100%</span><span class="stat-label">Class-B Autoclave Sterilization</span></div>';
+      aboutSplit.parentNode.appendChild(ribbon);
+    }
+  }
+
+  // 2. Service Page Tailored 3-Metric Radial Counter Strips (if page doesn't already have .stat-strip)
+  var serviceMetricsMap = {
+    "general-checkup.html": [
+      { count: 6, suffix: " Mo", pct: 85, label: "Recommended Preventive Interval" },
+      { count: 80, suffix: "%", pct: 80, label: "Cavity Risk Reduction" },
+      { count: 30, suffix: " Min", pct: 90, label: "Gentle Ultrasonic Session" }
+    ],
+    "root-canal-treatment.html": [
+      { count: 1, suffix: " Visit", pct: 95, label: "Single-Sitting Rotary RCT" },
+      { count: 45, suffix: " Min", pct: 88, label: "Typical Chairside Duration" },
+      { count: 99, suffix: "%", pct: 99, label: "Painless Anesthesia Comfort" }
+    ],
+    "dental-implant-dentistry.html": [
+      { count: 98, suffix: "%", pct: 98, label: "Osseointegration Success Rate" },
+      { count: 30, suffix: " Min", pct: 90, label: "Keyhole Fixture Placement" },
+      { count: 25, suffix: "+ Yrs", pct: 96, label: "Clinical Structural Longevity" }
+    ],
+    "periodonticgumdentistry.html": [
+      { count: 2, suffix: " mm", pct: 92, label: "Healthy Gum Sulcus Target" },
+      { count: 99, suffix: "%", pct: 99, label: "Laser Bacterial Reduction" },
+      { count: 1, suffix: " Visit", pct: 95, label: "Suture-Free Laser Protocol" }
+    ],
+    "cosmetic-dentistry.html": [
+      { count: 8, suffix: " Shades", pct: 92, label: "VITA Brightening Potential" },
+      { count: 3, suffix: " Days", pct: 88, label: "Digital Smile Design Preview" },
+      { count: 15, suffix: "+ Yrs", pct: 95, label: "E-Max Veneer Colour Stability" }
+    ],
+    "orthodontics.html": [
+      { count: 22, suffix: " Hrs", pct: 92, label: "Daily Clear Aligner Wear" },
+      { count: 12, suffix: " Mo", pct: 88, label: "Average Arch Alignment" },
+      { count: 100, suffix: "%", pct: 100, label: "3D Digital Scan Accuracy" }
+    ],
+    "pediatric-dentistry.html": [
+      { count: 80, suffix: "%", pct: 80, label: "Molar Sealant Cavity Protection" },
+      { count: 10, suffix: " Min", pct: 94, label: "Quick Fluoride Varnish Application" },
+      { count: 100, suffix: "%", pct: 100, label: "Child-Friendly Tell-Show-Do Care" }
+    ],
+    "oral-maxillofacial.html": [
+      { count: 100, suffix: "%", pct: 100, label: "Digital OPG Nerve Mapping" },
+      { count: 35, suffix: " Min", pct: 90, label: "Atraumatic Molar Removal" },
+      { count: 99, suffix: "%", pct: 99, label: "Socket Preservation Comfort" }
+    ],
+    "emi-insurance.html": [
+      { count: 0, suffix: "%", pct: 100, label: "Interest on Treatment EMIs" },
+      { count: 12, suffix: " Mo", pct: 92, label: "Flexible Monthly Tenures" },
+      { count: 5, suffix: " Min", pct: 96, label: "Instant Chairside Approval" }
+    ],
+    "international-patients.html": [
+      { count: 75, suffix: "%", pct: 75, label: "Average Global Cost Savings" },
+      { count: 35, suffix: " Min", pct: 88, label: "Drive from HYD Airport via ORR" },
+      { count: 6, suffix: " Days", pct: 94, label: "Express Crown &amp; Veneer Turnaround" }
+    ]
+  };
+
+  if (serviceMetricsMap[pageName] && !document.querySelector(".stat-strip")) {
+    var firstProse = document.querySelector(".band .prose");
+    if (firstProse) {
+      var strip = document.createElement("div");
+      strip.className = "stat-strip";
+      strip.innerHTML = serviceMetricsMap[pageName].map(function (m) {
+        return (
+          '<div class="stat-box" data-ring-pct="' + m.pct + '">' +
+            '<span class="stat-num" data-count="' + m.count + '" data-suffix="' + m.suffix + '">' + m.count + m.suffix + '</span>' +
+            '<span class="stat-label">' + m.label + '</span>' +
+          '</div>'
+        );
+      }).join("");
+      var actions = firstProse.querySelector(".hero-actions");
+      if (actions) {
+        firstProse.insertBefore(strip, actions);
+      } else {
+        firstProse.appendChild(strip);
+      }
+    }
+  }
+
+  // 3. Upgrade Every .stat-box with a Circular SVG Radial Gauge Ring
+  document.querySelectorAll(".stat-box").forEach(function (box) {
+    if (box.querySelector(".stat-ring-wrap")) return;
+    var pct = Number(box.getAttribute("data-ring-pct")) || 92;
+    var numEl = box.querySelector(".stat-num");
+    var lblEl = box.querySelector(".stat-label");
+    if (!numEl || !lblEl) return;
+    var copyWrap = document.createElement("div");
+    copyWrap.className = "stat-box-copy";
+    copyWrap.appendChild(numEl);
+    copyWrap.appendChild(lblEl);
+    box.innerHTML = "";
+    box.appendChild(copyWrap);
+
+    var ringWrap = document.createElement("div");
+    ringWrap.className = "stat-ring-wrap";
+    ringWrap.setAttribute("data-target-pct", String(pct));
+    ringWrap.innerHTML =
+      '<svg class="stat-ring-svg" viewBox="0 0 48 48" aria-hidden="true">' +
+        '<circle class="stat-ring-bg" cx="24" cy="24" r="20"></circle>' +
+        '<circle class="stat-ring-progress" cx="24" cy="24" r="20"></circle>' +
+      '</svg>' +
+      '<span class="stat-ring-icon">✓</span>';
+    box.appendChild(ringWrap);
+  });
+
+  // 4. Anatomical Callout Pills inside .clinical-viz-card
+  var vizCalloutsMap = {
+    "general-checkup.html": ["28 kHz Piezo Tip", "Zero Enamel Abrasion", "Warm Water Irrigation"],
+    "root-canal-treatment.html": ["Electronic Apex Locator", "Flexible NiTi Rotary File", "3D Bioceramic Seal"],
+    "dental-implant-dentistry.html": ["CAD/CAM Zirconia Crown", "Anti-Rotational Hex Abutment", "SLA Active Titanium Root"],
+    "periodonticgumdentistry.html": ["980nm Diode Laser", "Bloodless Pocket Sterilization", "Collagen Re-Attachment"],
+    "cosmetic-dentistry.html": ["0.3mm Lithium Disilicate", "Natural Incisal Translucency", "Stain-Resistant Glaze"],
+    "orthodontics.html": ["0.25mm Smart Force Step", "BPA-Free Medical Polymer", "3D Digital Arch Preview"],
+    "pediatric-dentistry.html": ["BPA-Free Molar Sealant", "Fluoride Ion Mineralization", "Acid-Deflecting Barrier"],
+    "dental-crowns-and-bridges.html": ["1200 MPa Monolithic Block", "5-Axis CAD/CAM Milling", "Biocompatible Gum Margin"],
+    "oral-maxillofacial.html": ["Digital OPG Nerve Trace", "Piezosurgical Bone Preservation", "PRF Accelerated Healing"],
+    "international-patients.html": ["35 Min ORR Airport Link", "FDA/CE Implant Passports", "Pre-Booked Priority Slots"]
+  };
+
+  var vizStage = document.querySelector(".clinical-viz-card .viz-stage");
+  if (vizStage && vizCalloutsMap[pageName] && !vizStage.querySelector(".viz-callout-row")) {
+    var calloutRow = document.createElement("div");
+    calloutRow.className = "viz-callout-row";
+    calloutRow.innerHTML = vizCalloutsMap[pageName].map(function (txt) {
+      return '<span class="viz-callout-pill"><span class="viz-callout-dot"></span>' + txt + '</span>';
+    }).join("");
+    vizStage.appendChild(calloutRow);
+  }
+
+  // 5. Interactive EMI Segmented Split Bar on emi-insurance.html
+  var emiResultCard = document.querySelector(".emi-result-card");
+  if (emiResultCard && !emiResultCard.querySelector(".emi-segment-wrap")) {
+    var segWrap = document.createElement("div");
+    segWrap.className = "emi-segment-wrap";
+    segWrap.innerHTML =
+      '<span class="emi-segment-label" id="emi-seg-caption">Visual Split: 6 Equal 0%-Interest Monthly Slices</span>' +
+      '<div class="emi-segment-bar" id="emi-segment-bar"></div>';
+    emiResultCard.appendChild(segWrap);
+
+    function renderEmiSegments(months) {
+      var bar = document.getElementById("emi-segment-bar");
+      var cap = document.getElementById("emi-seg-caption");
+      if (!bar) return;
+      if (cap) cap.textContent = "Visual Split: " + months + " Equal 0%-Interest Monthly Slices";
+      bar.innerHTML = "";
+      for (var i = 0; i < months; i++) {
+        var u = document.createElement("span");
+        u.className = "emi-seg-unit";
+        bar.appendChild(u);
+      }
+      if (window.gsap) {
+        window.gsap.fromTo(
+          bar.querySelectorAll(".emi-seg-unit"),
+          { scaleX: 0, opacity: 0.2 },
+          { scaleX: 1, opacity: 1, duration: 0.4, stagger: 0.04, ease: "power2.out" }
+        );
+      }
+    }
+    var activeTen = document.querySelector(".tenure-btn.is-active");
+    renderEmiSegments(activeTen ? Number(activeTen.getAttribute("data-tenure")) || 6 : 6);
+    document.querySelectorAll(".tenure-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        renderEmiSegments(Number(btn.getAttribute("data-tenure")) || 6);
+      });
+    });
+  }
+
+  // 6. 5-Star Rating Breakdown Infographic on patient-testimonials.html
+  if (pageName === "patient-testimonials.html") {
+    var testProse = document.querySelector(".band .prose");
+    if (testProse && !document.querySelector(".rating-breakdown-card")) {
+      var rb = document.createElement("div");
+      rb.className = "rating-breakdown-card";
+      rb.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.45rem;">' +
+          '<strong style="font-size:0.86rem;">Verified Google Rating Distribution</strong>' +
+          '<span style="font-size:0.78rem;color:var(--pink-deep);font-weight:700;">4.9 / 5.0 ★</span>' +
+        '</div>' +
+        '<div class="rating-bar-row"><span>5 ★</span><div class="bar-track"><div class="bar-fill" style="width:96%"></div></div><span>96%</span></div>' +
+        '<div class="rating-bar-row"><span>4 ★</span><div class="bar-track"><div class="bar-fill" style="width:4%"></div></div><span>4%</span></div>' +
+        '<div class="rating-bar-row"><span>3 ★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span>0%</span></div>';
+      testProse.appendChild(rb);
+    }
+  }
+
+  // 7. Live IST Clinic Day-Progress Timeline Bar inside Hours Card (index.html & contact.html)
+  document.querySelectorAll(".card .day-detail").forEach(function (detailEl) {
+    if (detailEl.parentNode.querySelector(".clinic-day-timeline")) return;
+    var now = new Date();
+    var utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+    var ist = new Date(utcMs + 5.5 * 3600000);
+    var hrs = ist.getHours() + ist.getMinutes() / 60;
+    var pct = Math.max(8, Math.min(100, Math.round(((hrs - 9.5) / (21 - 9.5)) * 100)));
+    var statusText = (hrs >= 9.5 && hrs <= 21) ? "Clinic Active Now (IST)" : "Next Session Opens 9:30 AM IST";
+    var tl = document.createElement("div");
+    tl.className = "clinic-day-timeline";
+    tl.innerHTML =
+      '<div class="clinic-day-meta"><span>09:30 AM</span><span style="color:var(--pink-deep)">' + statusText + '</span><span>09:00 PM</span></div>' +
+      '<div class="clinic-day-track"><div class="clinic-day-fill" data-target-width="' + pct + '%" style="width:0%"></div></div>';
+    detailEl.parentNode.insertBefore(tl, detailEl.nextSibling);
+  });
+
+  // 8. Inject Liquid-Gold Scroll Progress Track into Every .timeline-strip
+  document.querySelectorAll(".timeline-strip").forEach(function (strip) {
+    if (strip.querySelector(".timeline-Progress-track")) return;
+    var track = document.createElement("div");
+    track.className = "timeline-Progress-track";
+    track.innerHTML = '<div class="timeline-progress-fill"></div>';
+    strip.insertBefore(track, strip.firstChild);
+  });
+
+  // 9. Inject Rotating Specialty Pill in Hero on Service/Utility Pages
+  var heroInner = document.querySelector(".hero-inner");
+  if (heroInner && !heroInner.querySelector(".specialty-rotator-pill")) {
+    var rotPill = document.createElement("div");
+    rotPill.className = "specialty-rotator-pill";
+    rotPill.innerHTML =
+      '<span class="viz-callout-dot"></span>' +
+      '<span>Clinical Focus:</span>' +
+      '<span class="specialty-rotator-word" id="specialty-rotator-word">3D Guided Dental Implants</span>';
+    heroInner.appendChild(rotPill);
+  }
+
+  // D. Load Local Vendor Plugins (GSAP + ScrollTrigger + SplitType + Lenis) & Run Choreographed Animations
+  function loadScript(src) {
+    return new Promise(function (resolve) {
+      var s = document.createElement("script");
+      s.src = src;
+      s.async = false;
+      s.onload = function () { resolve(true); };
+      s.onerror = function () { resolve(false); };
+      document.head.appendChild(s);
+    });
+  }
+
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    Promise.all([
+      loadScript("assets/vendor/gsap.min.js"),
+      loadScript("assets/vendor/ScrollTrigger.min.js"),
+      loadScript("assets/vendor/split-type.min.js"),
+      loadScript("assets/vendor/lenis.min.js")
+    ]).then(function () {
+      var gsap = window.gsap;
+      var ScrollTrigger = window.ScrollTrigger;
+      var SplitType = window.SplitType;
+      var Lenis = window.Lenis;
+      if (!gsap) return;
+
+      if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+      // 1. Lenis Smooth Inertial Scrolling synced with GSAP Ticker
+      if (Lenis) {
+        try {
+          var lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+          if (ScrollTrigger) lenis.on("scroll", ScrollTrigger.update);
+          gsap.ticker.add(function (time) {
+            lenis.raf(time * 1000);
+          });
+          gsap.ticker.lagSmoothing(0);
+        } catch (e) {}
+      }
+
+      // 2. SYSTEM 1 — TEXT ANIMATIONS (SplitType Masked Line Curtain Reveal + Scroll-Lit Clinical Phrases + Specialty Rotator)
+      if (SplitType) {
+        document.querySelectorAll(".hero h1, .page-title, .band h2").forEach(function (heading) {
+          if (heading.getAttribute("data-split-done")) return;
+          heading.setAttribute("data-split-done", "1");
+          try {
+            var split = new SplitType(heading, { types: "lines", lineClass: "split-line-inner" });
+            if (!split.lines || !split.lines.length) return;
+            split.lines.forEach(function (line) {
+              var mask = document.createElement("span");
+              mask.className = "split-line-mask";
+              line.parentNode.insertBefore(mask, line);
+              mask.appendChild(line);
+            });
+            gsap.fromTo(
+              split.lines,
+              { yPercent: 105, opacity: 0 },
+              {
+                yPercent: 0,
+                opacity: 1,
+                duration: 0.78,
+                stagger: 0.09,
+                ease: "power3.out",
+                scrollTrigger: ScrollTrigger ? { trigger: heading, start: "top 88%", once: true } : undefined
+              }
+            );
+          } catch (err) {}
+        });
+      }
+
+      // Scroll-Lit Clinical Phrases inside .prose p strong and .review-card blockquote
+      document.querySelectorAll(".prose p strong, .prose li strong").forEach(function (strongEl) {
+        strongEl.classList.add("scroll-lit-phrase");
+        if (ScrollTrigger) {
+          ScrollTrigger.create({
+            trigger: strongEl,
+            start: "top 86%",
+            once: true,
+            onEnter: function () { strongEl.classList.add("is-lit"); }
+          });
+        } else {
+          strongEl.classList.add("is-lit");
+        }
+      });
+
+      // Rotating Specialty Word Pill Animation
+      var rotWordEl = document.getElementById("specialty-rotator-word");
+      if (rotWordEl) {
+        var specialties = [
+          "3D Guided Dental Implants",
+          "Laser Periodontal Gum Care",
+          "Single-Sitting Rotary RCT",
+          "Invisible Clear Aligners",
+          "Monolithic Zirconia Crowns",
+          "Pediatric Preventive Care"
+        ];
+        var sIdx = 0;
+        setInterval(function () {
+          sIdx = (sIdx + 1) % specialties.length;
+          gsap.to(rotWordEl, {
+            y: -8,
+            opacity: 0,
+            duration: 0.24,
+            ease: "power2.in",
+            onComplete: function () {
+              rotWordEl.textContent = specialties[sIdx];
+              gsap.fromTo(rotWordEl, { y: 8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, ease: "power2.out" });
+            }
+          });
+        }, 3000);
+      }
+
+      // 3. SYSTEM 2 — NUMBER & CIRCULAR SVG GAUGE ANIMATIONS (Odometer Roll + Radial Ring Draw)
+      document.querySelectorAll("[data-count]").forEach(function (el) {
+        var target = Number(el.getAttribute("data-count")) || 0;
+        var suffix = el.getAttribute("data-suffix") || "";
+        var prefix = el.getAttribute("data-prefix") || "";
+        var obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 1.45,
+          ease: "power3.out",
+          scrollTrigger: ScrollTrigger ? { trigger: el, start: "top 88%", once: true } : undefined,
+          onUpdate: function () {
+            el.textContent = prefix + Math.round(obj.val).toLocaleString("en-IN") + suffix;
+          }
+        });
+      });
+
+      document.querySelectorAll(".stat-ring-wrap").forEach(function (wrap) {
+        var pct = Number(wrap.getAttribute("data-target-pct")) || 92;
+        var circle = wrap.querySelector(".stat-ring-progress");
+        if (!circle) return;
+        var circumference = 125.6;
+        var targetOffset = circumference * (1 - pct / 100);
+        gsap.to(circle, {
+          strokeDashoffset: targetOffset,
+          duration: 1.5,
+          ease: "power3.out",
+          scrollTrigger: ScrollTrigger ? { trigger: wrap, start: "top 88%", once: true } : undefined
+        });
+      });
+
+      // 4. SYSTEM 3 — INFOGRAPHIC & CLINICAL DIAGRAM ANIMATIONS
+      // a) Scroll-Drawing Liquid-Gold Timeline Progress Line & Sequential Step Illumination
+      document.querySelectorAll(".timeline-strip").forEach(function (strip) {
+        var fill = strip.querySelector(".timeline-progress-fill");
+        var nodes = strip.querySelectorAll(".step-node");
+        if (fill) {
+          gsap.fromTo(
+            fill,
+            { width: "0%" },
+            {
+              width: "100%",
+              duration: 1.6,
+              ease: "power2.inOut",
+              scrollTrigger: ScrollTrigger ? { trigger: strip, start: "top 82%", once: true } : undefined
+            }
+          );
+        }
+        if (nodes.length) {
+          gsap.fromTo(
+            nodes,
+            { y: 20, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.6,
+              stagger: 0.16,
+              ease: "power3.out",
+              scrollTrigger: ScrollTrigger ? { trigger: strip, start: "top 84%", once: true } : undefined
+            }
+          );
+        }
+      });
+
+      // b) Comparison Bars & Rating Breakdown Bars Scrubbing from 0%
+      document.querySelectorAll(".bar-fill").forEach(function (bar) {
+        var targetW = bar.style.width || getComputedStyle(bar).getPropertyValue("--fill") || "80%";
+        gsap.fromTo(
+          bar,
+          { width: "0%" },
+          {
+            width: targetW.trim(),
+            duration: 1.35,
+            ease: "power3.out",
+            scrollTrigger: ScrollTrigger ? { trigger: bar, start: "top 90%", once: true } : undefined
+          }
+        );
+      });
+
+      // c) Clinic Live Day-Progress Bar Fill
+      document.querySelectorAll(".clinic-day-fill").forEach(function (df) {
+        var tw = df.getAttribute("data-target-width") || "65%";
+        gsap.to(df, {
+          width: tw,
+          duration: 1.3,
+          ease: "power3.out",
+          scrollTrigger: ScrollTrigger ? { trigger: df, start: "top 92%", once: true } : undefined
+        });
+      });
+
+      // d) Anatomical Callout Pills Stagger Entrance
+      document.querySelectorAll(".viz-callout-row").forEach(function (row) {
+        var pills = row.querySelectorAll(".viz-callout-pill");
+        gsap.fromTo(
+          pills,
+          { y: 12, opacity: 0, scale: 0.92 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.12,
+            ease: "back.out(1.7)",
+            scrollTrigger: ScrollTrigger ? { trigger: row, start: "top 90%", once: true } : undefined
+          }
+        );
+      });
+
+      // 5. SYSTEM 4 — ICON ANIMATIONS (Self-Drawing SVG Strokes on Scroll + Hover Micro-Physics)
+      document.querySelectorAll(".mark svg, .icon-tile svg, .why-grid svg, .bento-item svg").forEach(function (svg) {
+        var shapes = svg.querySelectorAll("path, line, polyline, circle, rect");
+        shapes.forEach(function (shape) {
+          if (typeof shape.getTotalLength === "function") {
+            try {
+              var len = shape.getTotalLength();
+              if (len > 0) {
+                shape.style.strokeDasharray = String(len);
+                shape.style.strokeDashoffset = String(len);
+                gsap.to(shape, {
+                  strokeDashoffset: 0,
+                  duration: 1.1,
+                  ease: "power2.out",
+                  scrollTrigger: ScrollTrigger ? { trigger: svg, start: "top 90%", once: true } : undefined
+                });
+              }
+            } catch (e) {}
+          }
+        });
+      });
+
+      // Hover Micro-Physics on Cards & Icon Tiles
+      document.querySelectorAll(".icon-tile, .bento-item, .why-grid article, .stat-box").forEach(function (item) {
+        var icon = item.querySelector(".mark svg, .stat-ring-svg");
+        if (!icon) return;
+        item.addEventListener("mouseenter", function () {
+          gsap.fromTo(
+            icon,
+            { scale: 0.9, rotate: -6 },
+            { scale: 1.12, rotate: 0, duration: 0.42, ease: "elastic.out(1.2, 0.5)" }
+          );
+        });
+        item.addEventListener("mouseleave", function () {
+          gsap.to(icon, { scale: 1, rotate: 0, duration: 0.25, ease: "power2.out" });
+        });
+      });
+    });
+  }
 })();
