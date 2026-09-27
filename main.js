@@ -1,5 +1,6 @@
 (function () {
-  var file = location.pathname.split("/").pop() || "index.html";
+  var file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  if (file && file.indexOf(".html") === -1) file += ".html";
 
   // ==========================================================================
   // 1. 3D ROTATING TOOTH PRELOADER & PAGE TRANSITION
@@ -203,6 +204,12 @@
     });
     rail.appendChild(grid);
     hero.after(rail);
+    var activeTile = grid.querySelector('[aria-current="page"]');
+    if (activeTile && typeof activeTile.scrollIntoView === "function") {
+      setTimeout(function () {
+        try { activeTile.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); } catch (e) {}
+      }, 250);
+    }
   }
 
   // ==========================================================================
@@ -488,47 +495,86 @@
   });
 
   // ==========================================================================
-  // 10. NATIVE APP BOTTOM DOCK (MOBILE/TABLET) & FLOATING MODAL
+  // 10. NATIVE APP TOP HEADER, BOTTOM DOCK & SLIDE-UP SHEET (MOBILE/TABLET)
   // ==========================================================================
   var siteNav = document.querySelector(".nav");
   if (siteNav) {
+    var normFile = (file || "index.html").toLowerCase();
+    if (normFile && normFile.indexOf(".html") === -1) normFile += ".html";
+
     var drops = siteNav.querySelectorAll(".drop");
     var services = drops[0] ? drops[0].querySelectorAll("a") : [];
     var more = drops[1] ? drops[1].querySelectorAll("a") : [];
     var serviceHrefs = Array.prototype.map.call(services, function (l) { return l.getAttribute("href"); });
     var moreHrefs = Array.prototype.map.call(more, function (l) { return l.getAttribute("href"); });
-    var menuHrefs = ["about.html", "blogs.html"].concat(moreHrefs);
+    var menuHrefs = ["about.html", "blogs.html", "contact.html"].concat(moreHrefs);
 
     function dockIcon(path) {
-      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="' + path + '" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" aria-hidden="true"><path d="' + path + '" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
     }
 
+    // Inject Top-Right App Action Pills inside .mast-inner on Mobile/Tablet
+    var mastInner = document.querySelector(".mast-inner");
+    if (mastInner && !mastInner.querySelector(".app-top-actions")) {
+      var topAct = document.createElement("div");
+      topAct.className = "app-top-actions";
+      topAct.innerHTML =
+        '<a class="app-top-btn" href="tel:+919030121100" aria-label="Call Clinic">' +
+          dockIcon("M6 4h3l2 4-2 1a12 12 0 0 0 6 6l1-2 4 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 2-2z") +
+          '<span>Call</span>' +
+        '</a>' +
+        '<button class="app-top-btn app-top-btn-gold" type="button" data-sheet="menu" aria-expanded="false">' +
+          dockIcon("M4 7h16M4 12h16M4 17h16") +
+          '<span>Menu</span>' +
+        '</button>';
+      mastInner.appendChild(topAct);
+    }
+
+    // Floating 5-Tab Bottom App Dock
     var bar = document.createElement("nav");
     bar.className = "app-bar";
     bar.setAttribute("aria-label", "App Navigation");
     bar.innerHTML =
       '<a class="app-tab" href="index.html">' + dockIcon("M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1z") + "<span>Home</span></a>" +
       '<button class="app-tab" type="button" data-sheet="services" aria-expanded="false">' + dockIcon("M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z") + "<span>Services</span></button>" +
-      '<a class="app-book" href="book.html" aria-label="Book Appointment">Book</a>' +
-      '<a class="app-tab" href="contact.html">' + dockIcon("M6 4h3l2 4-2 1a12 12 0 0 0 6 6l1-2 4 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 6a2 2 0 0 1 2-2z") + "<span>Contact</span></a>" +
+      '<a class="app-book" href="book.html" aria-label="Book Appointment">' +
+        dockIcon("M8 2v3M16 2v3M3 9h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z") +
+        "<span>Book</span>" +
+      "</a>" +
+      '<a class="app-tab" href="https://wa.me/919030121100?text=' + encodeURIComponent("Hello Ekaa Dentistry, I would like to book a consultation.") + '" target="_blank" rel="noopener">' +
+        dockIcon("M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z") +
+        "<span>WhatsApp</span>" +
+      "</a>" +
       '<button class="app-tab" type="button" data-sheet="menu" aria-expanded="false">' + dockIcon("M4 7h16M4 12h16M4 17h16") + "<span>Explore</span></button>";
 
+    // Slide-Up App Sheet with Drag Handle, Close Button & Quick Actions Footer
     var sheet = document.createElement("div");
     sheet.className = "app-sheet";
     sheet.hidden = true;
-    sheet.innerHTML = '<div class="app-sheet-card" role="dialog" aria-modal="true"><h2></h2><div class="app-links"></div></div>';
+    sheet.innerHTML =
+      '<div class="app-sheet-card" role="dialog" aria-modal="true">' +
+        '<div class="app-sheet-handle"></div>' +
+        '<div class="app-sheet-head">' +
+          '<h2></h2>' +
+          '<button type="button" class="app-sheet-close" aria-label="Close menu">✕</button>' +
+        '</div>' +
+        '<div class="app-links"></div>' +
+        '<div class="app-sheet-footer">' +
+          '<a class="btn btn-outline" href="tel:+919030121100" style="text-align:center;">Call +91 9030121100</a>' +
+          '<a class="btn btn-pink" href="book.html" style="text-align:center;">Book Slot Now</a>' +
+        '</div>' +
+      '</div>';
     document.body.appendChild(sheet);
     document.body.appendChild(bar);
 
     function markActive(selector, hrefs) {
       var el = bar.querySelector(selector);
-      if (el && hrefs.indexOf(file) !== -1) {
+      if (el && hrefs.indexOf(normFile) !== -1) {
         if (el.tagName === "BUTTON") el.classList.add("is-on");
         else el.setAttribute("aria-current", "page");
       }
     }
-    markActive('a[href="index.html"]', ["index.html", ""]);
-    markActive('a[href="contact.html"]', ["contact.html"]);
+    markActive('a[href="index.html"]', ["index.html"]);
     markActive('a[href="book.html"]', ["book.html"]);
     markActive('[data-sheet="services"]', serviceHrefs);
     markActive('[data-sheet="menu"]', menuHrefs);
@@ -540,12 +586,16 @@
     function fillSheet(name, anchors) {
       sheetTitle.textContent = name;
       sheetLinks.innerHTML = "";
+      var seen = {};
       anchors.forEach(function (anchor) {
         if (!anchor) return;
+        var href = anchor.getAttribute("href");
+        if (!href || seen[href]) return;
+        seen[href] = true;
         var a = document.createElement("a");
-        a.href = anchor.getAttribute("href");
+        a.href = href;
         a.textContent = anchor.textContent.trim();
-        if (a.getAttribute("href") === file) a.setAttribute("aria-current", "page");
+        if (href === normFile) a.setAttribute("aria-current", "page");
         sheetLinks.appendChild(a);
       });
     }
@@ -553,35 +603,58 @@
     function closeSheet() {
       sheet.hidden = true;
       openSheetName = "";
-      bar.querySelectorAll("[data-sheet]").forEach(function (b) { b.setAttribute("aria-expanded", "false"); });
+      document.querySelectorAll("[data-sheet]").forEach(function (b) { b.setAttribute("aria-expanded", "false"); });
     }
 
-    bar.querySelectorAll("[data-sheet]").forEach(function (button) {
+    document.querySelectorAll("[data-sheet]").forEach(function (button) {
       button.addEventListener("click", function () {
         var name = button.getAttribute("data-sheet");
-        if (openSheetName === name) {
+        if (openSheetName === name && !sheet.hidden) {
           closeSheet();
           return;
         }
-        if (name === "services") fillSheet("Dental Services", Array.prototype.slice.call(services));
-        else {
+        if (name === "services") {
+          fillSheet("9 Dental Specialties", Array.prototype.slice.call(services));
+        } else {
           var menuLinks = [
             siteNav.querySelector('a[href="about.html"]'),
-            siteNav.querySelector('a[href="blogs.html"]')
+            siteNav.querySelector('a[href="emi-insurance.html"]'),
+            siteNav.querySelector('a[href="international-patients.html"]'),
+            siteNav.querySelector('a[href="patient-testimonials.html"]'),
+            siteNav.querySelector('a[href="community-outreach.html"]'),
+            siteNav.querySelector('a[href="blogs.html"]'),
+            siteNav.querySelector('a[href="contact.html"]')
           ].concat(Array.prototype.slice.call(more));
           fillSheet("Explore Ekaa Dentistry", menuLinks);
         }
         openSheetName = name;
         sheet.hidden = false;
-        bar.querySelectorAll("[data-sheet]").forEach(function (item) {
-          item.setAttribute("aria-expanded", item === button ? "true" : "false");
+        document.querySelectorAll("[data-sheet]").forEach(function (item) {
+          item.setAttribute("aria-expanded", item.getAttribute("data-sheet") === name ? "true" : "false");
         });
       });
     });
 
+    sheet.querySelector(".app-sheet-close").addEventListener("click", closeSheet);
     sheet.addEventListener("click", function (e) {
       if (e.target === sheet) closeSheet();
     });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !sheet.hidden) closeSheet();
+    });
+
+    // Touch Swipe-Down to Close Bottom Sheet
+    var sheetCard = sheet.querySelector(".app-sheet-card");
+    var touchStartY = 0;
+    sheetCard.addEventListener("touchstart", function (e) {
+      if (e.touches && e.touches.length) touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    sheetCard.addEventListener("touchend", function (e) {
+      if (e.changedTouches && e.changedTouches.length) {
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        if (dy > 65 && sheetCard.scrollTop <= 5) closeSheet();
+      }
+    }, { passive: true });
   }
 
   // Floating Quick Actions & Quick Booking Modal
